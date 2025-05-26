@@ -1,0 +1,68 @@
+joaoroberto@pop-os:~/Desktop$ mkdir tarefa-3-git-ead
+joaoroberto@pop-os:~/Desktop$ cd tarefa-3-git-ead/
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ git init
+Initialized empty Git repository in /home/joaoroberto/Desktop/tarefa-3-git-ead/.git/
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ touch arquivo-01 arquivo-02 arquivo-03
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ ls
+arquivo-01  arquivo-02  arquivo-03
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ git add .
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ git commit -m "commit inicial"
+[main (root-commit) a18ceaf] commit inicial
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 arquivo-01
+ create mode 100644 arquivo-02
+ create mode 100644 arquivo-03
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ nano arquivo-01
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ nano arquivo-02
+diff --git a/arquivo-01 b/arquivo-01
+index e69de29..6226a46 100644
+--- a/arquivo-01
++++ b/arquivo-01
+@@ -0,0 +1 @@
++Alguma modificação
+diff --git a/arquivo-02 b/arquivo-02
+index e69de29..47a10c3 100644
+--- a/arquivo-02
++++ b/arquivo-02
+@@ -0,0 +1,2 @@
++Alguma modificação 02
++
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ git add .
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ git commit -m "alternado arquivo 01 e 02"
+[main 7237c51] alternado arquivo 01 e 02
+ 2 files changed, 3 insertions(+)
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ git log --oneline
+7237c51 (HEAD -> main) alternado arquivo 01 e 02
+a18ceaf commit inicial
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ git revert HEAD
+[main 62ec3df] Revert "alternado arquivo 01 e 02"
+ 2 files changed, 3 deletions(-)
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ git log --oneline
+62ec3df (HEAD -> main) Revert "alternado arquivo 01 e 02"
+7237c51 alternado arquivo 01 e 02
+a18ceaf commit inicial
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ nano arquivo-03
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ git stash
+Saved working directory and index state WIP on main: 62ec3df Revert "alternado arquivo 01 e 02"
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ git checkout -b developer
+Switched to a new branch 'developer'
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ git checkout main
+Switched to branch 'main'
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ git stash pop
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   arquivo-03
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (42ee9441a575f478f78d3d89f95a2867079b020a)
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ git reflog
+62ec3df (HEAD -> main, developer) HEAD@{0}: checkout: moving from developer to main
+62ec3df (HEAD -> main, developer) HEAD@{1}: checkout: moving from main to developer
+62ec3df (HEAD -> main, developer) HEAD@{2}: reset: moving to HEAD
+62ec3df (HEAD -> main, developer) HEAD@{3}: revert: Revert "alternado arquivo 01 e 02"
+7237c51 HEAD@{4}: commit: alternado arquivo 01 e 02
+a18ceaf HEAD@{5}: commit (initial): commit inicial
+joaoroberto@pop-os:~/Desktop/tarefa-3-git-ead$ git tag -a v1.0 -m "Versão Inicial" a18ceaf
+
